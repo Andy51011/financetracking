@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import userRegistrationUrl from "../api/userRegistration";
+import { AppContext } from "../../context.js";
 const axios = require('axios').default;
 
 const Register = () => {
+  const {setIsRegistered } = useContext(AppContext);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [registrationSuccess, setRegistrationSuccess] = ("");
 
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
@@ -31,17 +35,12 @@ const Register = () => {
     setPassword(e.target.value);
   }
 
-  // send to server as post when user registers
-  const obj = {
-    firstName: {firstName},
-      lastName: {lastName},
-      username: {username},
-      password: {password},
-      email: {email}
+  const cancelRegisterPage = () => {
+    setIsRegistered(false);
   }
 
+  // send to server as post when user registers
   const signUp = (e) => {
-    console.log("test");
     e.preventDefault();
     axios.post(userRegistrationUrl, {
       firstName: firstName,
@@ -50,10 +49,10 @@ const Register = () => {
       password: password,
       email: email
     }).then(function (response) {
-      console.log(response);
+      // load screen?
     })
     .catch(function(error) {
-      console.log(error)
+    // display error
     });
   }
 
@@ -84,7 +83,7 @@ const Register = () => {
     <Button variant="primary" type="submit">
       Register
     </Button>
-    <Form.Text id="cancel-form"> or <span className="cancel-form" >Cancel</span></Form.Text>
+    <Form.Text id="cancel-form"> or <span className="cancel-form" onClick={cancelRegisterPage}>Cancel</span></Form.Text>
     </Form.Group>
    </Form>
     </>

@@ -7,7 +7,6 @@ const SignIn = () => {
   const { register, setIsRegistered } = useContext(AppContext);
 
   const displayRegisterPage = () => {
-    console.log("test");
     setIsRegistered(true);
   }
 

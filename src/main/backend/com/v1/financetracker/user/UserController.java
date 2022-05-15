@@ -60,7 +60,7 @@ public class UserController {
             User newUser = userService.addNewUser(user);
             return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
     }
 

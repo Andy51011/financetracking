@@ -20,6 +20,8 @@ import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.enabled;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Table(name="users")
 public class User implements UserDetails {
 

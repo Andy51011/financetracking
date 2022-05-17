@@ -1,4 +1,15 @@
-.container {
-  margin-right: 0%;
-  width: 57%;
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 3px solid black;
+  background-color: rgba(39, 27, 13, 0.993);
+  align-items: center;
+}
+
+
+
+.nav-item {
+  color: rgba(241, 241, 241, 0.749);
 }

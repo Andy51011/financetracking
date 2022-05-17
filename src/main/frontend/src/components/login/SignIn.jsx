@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { AppContext } from "../../context.js";
 import listOfUsers from "../api/listOfUsers";
+import singleUser from "../api/singleUser";
+import { debounce } from "lodash";
 import axios from "axios";
 
+//change to auth0
 const SignIn = () => {
   const { register, setIsRegistered, currUser, setCurrUser, username, setUsername, password, setPassword} = useContext(AppContext);
 
@@ -20,23 +23,39 @@ const SignIn = () => {
     setPassword(e.target.value);
   }
 
-  const loginSubmit = (username, password) => {
-    axios.get(listOfUsers)
-      .then(function (response) {
-        console.log(response)
+  async function getData(username, password) {
+    const data = await axios.get(`${singleUser}/${username}/${password}`)
+    .then(function (response) {
+      console.log(response);
       })
-      .catch(function (error) {
+    .catch(function (error) {
+    })
+    setCurrUser(data);
+  };
 
-      })
+
+  const loginSubmit = () => {
+    getData(username, password);
   }
 
+  //
+  // const loginSubmit = (username, password, e) => {
+  //   e.preventDefault();
+  //   axios.get(`${singleUser}/${username}/${password}`)
+  //     .then(function (response) {
+  //       setCurrUser(response.data);
+  //       console.log(currUser);
+  //       })
+  //     .catch(function (error) {
+  //     })
+  // }
 
   return (
     <>
-      <Form onSubmit={loginSubmit}>
+      <Form  onSubmit={loginSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" onChange={handleUsername} value={username}/>
+          <Form.Control type="text" placeholder="Enter email" onChange={handleUsername} value={username}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>

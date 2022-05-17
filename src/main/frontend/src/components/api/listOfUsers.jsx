@@ -1,3 +1,3 @@
-const listOfUsers = `https://localhost:9090/api/v1/user`;
+const listOfUsers = `http://localhost:9090/api/v1/user`;
 
 export default listOfUsers;

@@ -53,6 +53,21 @@ public class UserController {
         }
     }
 
+    // get user based on some criteria
+    @GetMapping("/{username}/{password}")
+    public ResponseEntity<User> findUserByCriteria(@PathVariable("username") String username, @PathVariable("password") String password) {
+        try {
+            User user = userService.findUserByCriteria(username, password);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // register user
     @PostMapping("/create-user")
     public ResponseEntity<User> createUser(@RequestBody User user) {

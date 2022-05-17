@@ -26,6 +26,10 @@ public class UserService {
         return userRepository.getById(id);
     }
 
+    public User findUserByCriteria(String username, String password) {
+        return userRepository.findUserByNameAndPassword(username, password);
+    }
+
     // return true if deleted
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
